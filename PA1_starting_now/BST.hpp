@@ -127,7 +127,20 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 template <typename Data>
 BSTIterator<Data> BST<Data>::find(const Data& item) const
 {
-  // TODO
+  BSTNode<data> * node = root;
+  while(node != NULL){
+	if(item < node->data){
+		node = node->left;
+	}
+	else if (node->data < item){
+		node = node->right;
+	}
+	//here the data and node are equal-- we found it!
+	else{
+		BSTIterator<Data> iter (node);
+	}
+  }
+  //handle case where element is not found; return null iter 
   return BSTIterator<Data>(nullptr);
 
 }

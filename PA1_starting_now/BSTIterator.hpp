@@ -42,7 +42,7 @@ public:
    */ 
 template<typename Data>
 BSTIterator<Data>::BSTIterator(BSTNode<Data>* curr) {
-  // TODO
+  this->curr = curr;
   // Remember the keyword "this" which stores a pointer to the calling object.
   // It will be helpful to distinguish between the parameter "curr" and the 
   // member variable "curr"

@@ -26,6 +26,12 @@ int main() {
     v.push_back(100);
     v.push_back(-33);
 
+    BSTNode<int> * node(3); 
+    node->left = BSTNode<int> * left(1);
+    node->right = BSTNode<int> * right(4);
+    BSTNode<int> * result = node.successor();
+    cout << result->data << endl;
+
     /* UNCOMMENT THE LINES BELOW TO TEST THE TEMPLATE-BASED ITERATOR */
 
     /*

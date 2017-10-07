@@ -47,8 +47,16 @@ BSTNode<Data>::BSTNode(const Data & d) : data(d), left(0), right(0), parent(0) {
 template <typename Data>
 BSTNode<Data>* BSTNode<Data>::successor()
 {
-  //TODO 
-  return NULL;
+  if (right != NULL){
+  	return right;
+  }
+  else{
+	BSTNode<Data> * node = this;
+  	while(node->parent->data < node->data){
+		node = node->parent;
+	}
+	return node->parent;	
+  }
 }
 
 /** Overload operator<< to print a BSTNode's fields to an ostream. */

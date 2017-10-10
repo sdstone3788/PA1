@@ -110,8 +110,10 @@ BST<Data>::~BST() {
  */
 template <typename Data>
 std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
-  // TODO
-  // REPLACE THE LINE BELOW
+  BSTNode<Data> *node = root;
+  iterator=this.begin();
+  
+  
   return std::pair<BSTIterator<Data>, bool>(BSTIterator<Data>(0), false);
 
 }

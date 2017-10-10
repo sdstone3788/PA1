@@ -110,9 +110,30 @@ BST<Data>::~BST() {
  */
 template <typename Data>
 std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
-  BSTNode<Data> *node = root;
+  //find the first data
   iterator=this.begin();
-  
+  //check if the tree is empty without using ==
+  if (this->isize.equals(0)){
+	//add item as a new node to the tree
+	BSTNode<Data>* first(item);
+	//set the root to the node  
+	this->root = first; 
+	iterator = this.begin();
+	return std::pair<BSTIterator<Data>,bool>(iterator, true);
+  }
+  //if the item already exists, we just need an iterator pointing to it
+  if(this.find(item).equals(true)){
+  	//do like iterator.next, compare data to the item until you find the item, t
+  	//then return the iterator
+  	//
+  }
+  //the item does not exist in the tree so we need to put it in AF.
+  if(this.find(item).equals(false)){
+ 	//i'm not sure how the iterator traverses the tree. LOL
+
+  }
+	
+   
   
   return std::pair<BSTIterator<Data>, bool>(BSTIterator<Data>(0), false);
 

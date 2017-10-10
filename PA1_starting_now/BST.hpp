@@ -110,32 +110,53 @@ BST<Data>::~BST() {
  */
 template <typename Data>
 std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
-  //find the first data
-  iterator=this.begin();
+  
+  
   //check if the tree is empty without using ==
   if (this->isize.equals(0)){
 	//add item as a new node to the tree
 	BSTNode<Data>* first(item);
 	//set the root to the node  
 	this->root = first; 
-	iterator = this.begin();
-	return std::pair<BSTIterator<Data>,bool>(iterator, true);
+	BSTIterator<Data>::BSTIterator itr(first);
+	return std::pair<BSTIterator<Data>,bool>(itr, true);
   }
   //if the item already exists, we just need an iterator pointing to it
-  if(this.find(item).equals(true)){
-  	//do like iterator.next, compare data to the item until you find the item, t
-  	//then return the iterator
-  	//
+  BSTIterator<Data>::BSTIterator itemItr= this.find(item);
+  if(itemItr!=this.end()){
+	return std::pair<BSTIterator<Data>,bool>(itemItr, false);
   }
-  //the item does not exist in the tree so we need to put it in AF.
-  if(this.find(item).equals(false)){
- 	//i'm not sure how the iterator traverses the tree. LOL
-
-  }
+  //the item does not exist in the tree so we need to put it in and return true
+  else{
+	BSTNode<Data>* insert_node(item);
+	BSTNode<Data> * node = root;
+	BSTIterator <Data>::BSTIterator new_itr;
+        while (node != NULL){
+		if(item < node->data){
+			if(node->left != NULL){
+				node = node->left;
+			}
+			//insert it if the child is not there
+			else{
+				node->left = insert_node;
+				new_itr(node->left);
+				break;
+			}
+		}
+		else if (node->data < item){
+			if(node->right != NULL){	
+				node = node->right;
+			}
+			else{
+				node->right = insert_node;
+				new_itr(node->right);
+				break;
+			}
+		}
+	}
 	
-   
-  
-  return std::pair<BSTIterator<Data>, bool>(BSTIterator<Data>(0), false);
+        return std::pair<BSTIterator<Data>, bool>(new_itr, true);
+   }	
 
 }
 
@@ -182,7 +203,7 @@ unsigned int BST<Data>::size() const
 template <typename Data> 
 unsigned int BST<Data>::height() const
 {
-  // TODO
+  
   return 0;
 }
 
@@ -192,7 +213,9 @@ unsigned int BST<Data>::height() const
 template <typename Data>
 bool BST<Data>::empty() const
 {
-  // TODO
+  if (isize<1){
+	return true;
+  }
   return false;
 }
 

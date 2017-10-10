@@ -113,7 +113,7 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
   
   
   //check if the tree is empty without using ==
-  if (this->isize.equals(0)){
+  if (this.empty()){
 	//add item as a new node to the tree
 	BSTNode<Data>* first(item);
 	//set the root to the node  
@@ -181,11 +181,13 @@ BSTIterator<Data> BST<Data>::find(const Data& item) const
 	}
 	//here the data and node are equal-- we found it!
 	else{
-		BSTIterator<Data> iter (node);
+		BSTIterator<Data>::BSTIterator iter(node);
+		return iter;
 	}
   }
   //handle case where element is not found; return null iter 
-  return BSTIterator<Data>(nullptr);
+  
+  return BSTIterator<Data>(nullptr); 
 
 }
 
@@ -203,10 +205,46 @@ unsigned int BST<Data>::size() const
 template <typename Data> 
 unsigned int BST<Data>::height() const
 {
-  
-  return 0;
+  int height;
+  //if the tree is empty, the height is -1
+  if(this.empty()){
+	height = -1;
+  }
+  //if the tree has only one node (a root), then the height is 0
+  else if(this.size()== 1){
+  	height = 0;
+  }
+  //else, find the height of the tree
+  else{
+  		
+  }
 }
 
+template <typename Data>
+unsigned int BST<Data>::heightHelper(BSTNode<Data>* node) const
+{
+  BSTNode<Data>* leftO = node->left;
+  BSTNode<Data>* rightO = node->right;
+  int Ltotal=0;
+  int Rtotal=0;
+  if (leftO){
+	Ltotal= 1+ heightHelper(leftO);
+  }
+  if (rightO){
+	Rtotal=1+ heightHelper(rightO);
+  }
+  if (Rtotal<Ltotal){
+	return Ltotal;
+  }
+  if (Ltotal<Rtotal){
+	return Rtotal;
+  }
+  return Ltotal;
+}
+  
+   
+   
+}
 
 /** Return true if the BST is empty, else false.
  */ 
@@ -241,8 +279,11 @@ BSTIterator<Data> BST<Data>::end() const
 template <typename Data>
 BSTNode<Data>* BST<Data>::first(BSTNode<Data>* root)
 {
-  // TODO
-  return nullptr;
+  BSTNode<Data>* node = root;
+  while (node->left){
+  	node = node->left;
+  }
+  return node;
 }
 
 /** do a postorder traversal, deleting nodes
@@ -250,7 +291,18 @@ BSTNode<Data>* BST<Data>::first(BSTNode<Data>* root)
 template <typename Data>
 void BST<Data>::deleteAll(BSTNode<Data>* n)
 {
-  // TODO
+	if(n->left){
+		deleteAll(n->left);	
+	}  
+	if(n->right){
+		deleteAll(n->right);
+	}
+	//delete node
+	delete n->left;
+	delete n->right;
+	delete n->parent;
+	//TODO: do dis make sense????
+	delete n->data;	
 }
 
 

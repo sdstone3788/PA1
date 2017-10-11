@@ -73,19 +73,25 @@ BSTIterator<Data> BSTIterator<Data>::operator++(int) {
 /** Equality test operator. */ // TODO
 template<typename Data>
 bool BSTIterator<Data>::operator==(BSTIterator<Data> const & other) const {
-  // TODO
+  if (other->curr < &this->curr || &this->curr < other->curr){
+	return false;
+  }
+  return true;
+
   // Notice that other is a reference and not a pointer, thus it cannot be null
-  // Return true if other is NOT equal to the calling object
+  // Return true if other is equal to the calling object
   // Two iterators are equal if they point to the same BSTNode in the same BST  
 
-  return false;
+  
 
 }
 
 /** Inequality test operator. */ 
 template<typename Data>
 bool BSTIterator<Data>::operator!=(BSTIterator<Data> const & other) const {
-  // TODO
+  if (other->curr < &this->curr || &this->curr < other->curr){
+	return true;
+  }
   // Notice that other is a reference and not a pointer, thus it cannot be null
   // Return true if other is NOT equal to the calling object
   // Two iterators are equal if they point to the same BSTNode in the same BST

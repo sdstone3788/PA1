@@ -114,12 +114,14 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
   
   
   //check if the tree is empty without using ==
-  if (this.empty()){
+  if (this->empty()){
 	//add item as a new node to the tree
-	BSTNode<Data>* first(item);
+	BSTNode<Data> first(item);
+	BSTNode<Data> * ptr = &first; 
 	//set the root to the node  
-	this->root = first; 
-	BSTIterator<Data> itr (first);  
+	this->root = ptr; 
+	BSTIterator<Data> itr (ptr);  
+	this.isize++;
 	return std::pair<BSTIterator<Data>,bool>(itr, true);
   }
   //if the item already exists, we just need an iterator pointing to it
@@ -155,7 +157,7 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 			}
 		}
 	}
-	
+	this.isize++;
         return std::pair<BSTIterator<Data>, bool>(new_itr, true);
    }	
 
@@ -246,7 +248,6 @@ unsigned int BST<Data>::heightHelper(BSTNode<Data>* node) const
   
    
    
-}
 
 /** Return true if the BST is empty, else false.
  */ 

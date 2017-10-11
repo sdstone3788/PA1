@@ -55,6 +55,7 @@ public:
    */ 
   unsigned int height() const;
 
+  unsigned int heightHelper(BSTNode<Data> * node) const;
 
   /** Return true if the BST is empty, else false.
    */ // TODO
@@ -118,11 +119,11 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 	BSTNode<Data>* first(item);
 	//set the root to the node  
 	this->root = first; 
-	BSTIterator<Data>::BSTIterator itr(first);
+	BSTIterator<Data> itr (first);  
 	return std::pair<BSTIterator<Data>,bool>(itr, true);
   }
   //if the item already exists, we just need an iterator pointing to it
-  BSTIterator<Data>::BSTIterator itemItr= this.find(item);
+  BSTIterator<Data> itemItr= this.find(item);
   if(itemItr!=this.end()){
 	return std::pair<BSTIterator<Data>,bool>(itemItr, false);
   }
@@ -130,7 +131,7 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
   else{
 	BSTNode<Data>* insert_node(item);
 	BSTNode<Data> * node = root;
-	BSTIterator <Data>::BSTIterator new_itr;
+	BSTIterator <Data> new_itr;
         while (node != NULL){
 		if(item < node->data){
 			if(node->left != NULL){
@@ -171,7 +172,7 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 template <typename Data>
 BSTIterator<Data> BST<Data>::find(const Data& item) const
 {
-  BSTNode<data> * node = root;
+  BSTNode<Data> * node = root;
   while(node != NULL){
 	if(item < node->data){
 		node = node->left;
@@ -181,7 +182,7 @@ BSTIterator<Data> BST<Data>::find(const Data& item) const
 	}
 	//here the data and node are equal-- we found it!
 	else{
-		BSTIterator<Data>::BSTIterator iter(node);
+		BSTIterator<Data> iter(node);
 		return iter;
 	}
   }
@@ -216,8 +217,9 @@ unsigned int BST<Data>::height() const
   }
   //else, find the height of the tree
   else{
-  		
+  	height = heightHelper(this->root);		
   }
+  return height;
 }
 
 template <typename Data>

@@ -30,7 +30,7 @@ public:
    ** POSTCONDITION:  the BST is unchanged.
    ** RETURNS: the BSTNode that is the successor of this BSTNode,
    ** or 0 if there is none.
-   */ // TODO
+   */
   BSTNode<Data>* successor(); 
 
 }; 
@@ -49,23 +49,28 @@ BSTNode<Data>* BSTNode<Data>::successor()
 {
    BSTNode<Data> * node = this;
    BSTNode<Data> * nodeP = node->parent;
-   if (nodeP->data < node->data){
-   	while (nodeP->data < node->data){
-		node=nodeP;
-		nodeP=node->parent;
-   	}
-	return node->parent;
-  }
-  if (node->data < nodeP->data){
-	while (node->data < nodeP->data){
-		if(node->right == NULL){
-			return nodeP;
-		}
-		BSTNode<Data>* nodeRight = node->right;
-		while(nodeRight->left){
-			nodeRight=nodeRight->left;
-		}
-		return nodeRight;
+   //while the paren't data is less than the node's, set the node to be
+   //its parent
+   while (nodeP->data < node->data){
+	node=nodeP;
+	nodeP=node->parent;
+   }
+   return node->parent;
+  
+   //while the parent's data is more than the node's, go right, then all the
+   //way left
+   while (node->data < nodeP->data){
+	//if there is no right child, then the successor is its parent
+	if(node->right == NULL){
+		return nodeP;
+	}
+	//if there is a right child, set that as our node, then traverse
+	//all the way left until we can't any more
+	BSTNode<Data>* nodeRight = node->right;
+	while(nodeRight->left){
+		nodeRight=nodeRight->left;
+	}
+	return nodeRight;
 	}
 
 }

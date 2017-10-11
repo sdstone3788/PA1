@@ -19,7 +19,7 @@ int main() {
 
     /* Create an STL vector of some ints */
     /*test*/
-    vector<int> v;
+   /* vector<int> v;
     v.push_back(3);
     v.push_back(4);
     v.push_back(1);
@@ -31,7 +31,7 @@ int main() {
     node->right = BSTNode<int> * right(4);
     BSTNode<int> * result = node.successor();
     cout << result->data << endl;
-
+	*/
     /* UNCOMMENT THE LINES BELOW TO TEST THE TEMPLATE-BASED ITERATOR */
 
     /*

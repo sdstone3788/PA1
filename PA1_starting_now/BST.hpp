@@ -3,9 +3,11 @@
 #include "BSTNode.hpp"
 #include "BSTIterator.hpp"
 #include <iostream>
+#include <typeinfo>
 
 template<typename Data>
 class BST {
+
 
 public:
 
@@ -109,6 +111,8 @@ BST<Data>::~BST() {
  *  Note: This function should use only the '<' operator when comparing
  *  Data items. (should not use ==, >, <=, >=)  
  */
+
+using namespace std;
 template <typename Data>
 std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
   
@@ -116,23 +120,25 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
   //check if the tree is empty without using ==
   if (empty()){
 	//add item as a new node to the tree
-	BSTNode<Data> first(item);
-	BSTNode<Data> * ptr = &first; 
+	BSTNode<Data> * ptr = new BSTNode<Data>(item); 
 	//set the root to the node  
-	this->root = ptr; 
+	root = ptr; 
+	cout << "ROOT IN INSERT: " << *(root) << endl;
 	BSTIterator<Data> itr (ptr);  
 	isize++;
+	cout << "beginning" << endl;
 	return std::pair<BSTIterator<Data>,bool>(itr, true);
   }
   //if the item already exists, we just need an iterator pointing to it
   BSTIterator<Data> itemItr= find(item);
   if(itemItr!=end()){
+	cout << "why" << endl;
 	return std::pair<BSTIterator<Data>,bool>(itemItr, false);
   }
   //the item does not exist in the tree so we need to put it in and return true
   else{
-	BSTNode<Data> insert_node(item);
-	BSTNode<Data> * insert_node_ptr = &insert_node;
+	//BSTNode<Data> insert_node = new BSTNode<Data>(item);
+	BSTNode<Data> * insert_node_ptr = new BSTNode<Data>(item);
 	BSTNode<Data> * node = root;
 	//BSTIterator <Data> new_itr (nullptr);
         while (node != NULL){
@@ -143,6 +149,8 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 			//insert it if the child is not there
 			else{
 				node->left = insert_node_ptr;
+				(node->left)->parent = node;
+				cout << "ARE YOU HERE left" << endl;
 				BSTIterator <Data> new_itr(node->left);
 				isize++;
         			return std::pair<BSTIterator<Data>, bool>(new_itr, true);
@@ -155,6 +163,8 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 			}
 			else{
 				node->right = insert_node_ptr;
+				(node->right)->parent = node;
+				cout << "ARE YOU HERE right" << endl;
 				BSTIterator <Data> new_itr(node->right);
 				isize++;
 			        return std::pair<BSTIterator<Data>, bool>(new_itr, true);
@@ -176,19 +186,28 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
  *  Data items. (should not use ==, >, <=, >=).  For the reasoning
  *  behind this, see the assignment writeup.
  */
+
+using namespace std;
 template <typename Data>
 BSTIterator<Data> BST<Data>::find(const Data& item) const
 {
   BSTNode<Data> * node = root;
+  cout << "root: " << *(root) << endl;
+  cout <<  "item: " << item << endl;
+  cout << "node->data: " << node->data << endl;
+  //cout << "node: " << *node << endl;
   while(node != NULL){
 	if(item < node->data){
+		cout << "less than" << endl;
 		node = node->left;
 	}
 	else if (node->data < item){
+		cout << "more than" << endl;
 		node = node->right;
 	}
 	//here the data and node are equal-- we found it!
 	else{
+		cout << "node was found" << endl;
 		BSTIterator<Data> iter(node);
 		return iter;
 	}
@@ -214,12 +233,8 @@ template <typename Data>
 unsigned int BST<Data>::height() const
 {
   int height;
-  //if the tree is empty, the height is -1
-  if(empty()){
-	height = -1;
-  }
-  //if the tree has only one node (a root), then the height is 0
-  else if(size()== 1){
+  //if the tree has only one node (a root) or none , then the height is 0
+  if(empty() || size()== 1){
   	height = 0;
   }
   //else, find the height of the tree

@@ -19,28 +19,24 @@ int main() {
 
     /* Create an STL vector of some ints */
     /*test*/
-   /* vector<int> v;
+    vector<int> v;
     v.push_back(3);
     v.push_back(4);
     v.push_back(1);
     v.push_back(100);
     v.push_back(-33);
 
-    BSTNode<int> * node(3); 
-    node->left = BSTNode<int> * left(1);
-    node->right = BSTNode<int> * right(4);
-    BSTNode<int> * result = node.successor();
-    cout << result->data << endl;
-	*/
+	
     /* UNCOMMENT THE LINES BELOW TO TEST THE TEMPLATE-BASED ITERATOR */
 
-    /*
+    
     // Test the template version of the BST  with ints 
     BST<int> btemp;
     for (int item : v) {
         // The auto type here is the pair of BSTIterator<int>, bool
         cout << "Inserting " << item << " into the int template-based BST...";
         auto p = btemp.insert(item);
+	cout << "did you reach here" << endl;
         if (*(p.first) != item) {
             cout << "Wrong iterator returned.  "
                  << "Expected " << item << " but got " << *(p.first) << endl;
@@ -101,8 +97,6 @@ int main() {
     }
 
     cout << "success!" << endl;
-
-    */
 
     // ADD MORE TESTS HERE.  You might also want to change what is input
     // into the vector v.

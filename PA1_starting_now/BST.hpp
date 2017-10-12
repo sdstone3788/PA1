@@ -114,26 +114,27 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
   
   
   //check if the tree is empty without using ==
-  if (this->empty()){
+  if (empty()){
 	//add item as a new node to the tree
 	BSTNode<Data> first(item);
 	BSTNode<Data> * ptr = &first; 
 	//set the root to the node  
 	this->root = ptr; 
 	BSTIterator<Data> itr (ptr);  
-	this.isize++;
+	isize++;
 	return std::pair<BSTIterator<Data>,bool>(itr, true);
   }
   //if the item already exists, we just need an iterator pointing to it
-  BSTIterator<Data> itemItr= this.find(item);
-  if(itemItr!=this.end()){
+  BSTIterator<Data> itemItr= find(item);
+  if(itemItr!=end()){
 	return std::pair<BSTIterator<Data>,bool>(itemItr, false);
   }
   //the item does not exist in the tree so we need to put it in and return true
   else{
-	BSTNode<Data>* insert_node(item);
+	BSTNode<Data> insert_node(item);
+	BSTNode<Data> * insert_node_ptr = &insert_node;
 	BSTNode<Data> * node = root;
-	BSTIterator <Data> new_itr;
+	//BSTIterator <Data> new_itr (nullptr);
         while (node != NULL){
 		if(item < node->data){
 			if(node->left != NULL){
@@ -141,9 +142,11 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 			}
 			//insert it if the child is not there
 			else{
-				node->left = insert_node;
-				new_itr(node->left);
-				break;
+				node->left = insert_node_ptr;
+				BSTIterator <Data> new_itr(node->left);
+				isize++;
+        			return std::pair<BSTIterator<Data>, bool>(new_itr, true);
+				//break;
 			}
 		}
 		else if (node->data < item){
@@ -151,14 +154,16 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 				node = node->right;
 			}
 			else{
-				node->right = insert_node;
-				new_itr(node->right);
-				break;
+				node->right = insert_node_ptr;
+				BSTIterator <Data> new_itr(node->right);
+				isize++;
+			        return std::pair<BSTIterator<Data>, bool>(new_itr, true);
+				//break;
 			}
 		}
 	}
-	this.isize++;
-        return std::pair<BSTIterator<Data>, bool>(new_itr, true);
+	//isize++;
+        //return std::pair<BSTIterator<Data>, bool>(new_itr, true);
    }	
 
 }
@@ -210,11 +215,11 @@ unsigned int BST<Data>::height() const
 {
   int height;
   //if the tree is empty, the height is -1
-  if(this.empty()){
+  if(empty()){
 	height = -1;
   }
   //if the tree has only one node (a root), then the height is 0
-  else if(this.size()== 1){
+  else if(size()== 1){
   	height = 0;
   }
   //else, find the height of the tree
@@ -305,7 +310,7 @@ void BST<Data>::deleteAll(BSTNode<Data>* n)
 	delete n->right;
 	delete n->parent;
 	//TODO: do dis make sense????
-	delete n->data;	
+	//delete n->data;	
 }
 
 

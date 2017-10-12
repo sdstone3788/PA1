@@ -73,7 +73,8 @@ BSTIterator<Data> BSTIterator<Data>::operator++(int) {
 /** Equality test operator. */ // TODO
 template<typename Data>
 bool BSTIterator<Data>::operator==(BSTIterator<Data> const & other) const {
-  if (other->curr < &this->curr || &this->curr < other->curr){
+  if (other.curr < curr || curr < other.curr){
+  //if (other->curr < &this->curr || &this->curr < other->curr){
 	return false;
   }
   return true;
@@ -89,7 +90,8 @@ bool BSTIterator<Data>::operator==(BSTIterator<Data> const & other) const {
 /** Inequality test operator. */ 
 template<typename Data>
 bool BSTIterator<Data>::operator!=(BSTIterator<Data> const & other) const {
-  if (other->curr < &this->curr || &this->curr < other->curr){
+  if (other.curr < curr || curr < other.curr){
+  //if (other->curr < &this->curr || &this->curr < other->curr){
 	return true;
   }
   // Notice that other is a reference and not a pointer, thus it cannot be null

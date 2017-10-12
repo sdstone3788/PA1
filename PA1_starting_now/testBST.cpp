@@ -36,7 +36,6 @@ int main() {
         // The auto type here is the pair of BSTIterator<int>, bool
         cout << "Inserting " << item << " into the int template-based BST...";
         auto p = btemp.insert(item);
-	cout << "did you reach here" << endl;
         if (*(p.first) != item) {
             cout << "Wrong iterator returned.  "
                  << "Expected " << item << " but got " << *(p.first) << endl;
@@ -74,23 +73,18 @@ int main() {
     cout << "traversal using iterator..." << endl;
     auto vit = v.begin();
     auto ven = v.end();
-    cout << "here" << endl;
     // This is equivalent to BSTIterator<int> en = btemp.end();
     auto en = btemp.end();
 
     //This is equivalent to BST<int>::iterator it = btemp.begin();
     auto it = btemp.begin();
-    cout << "here 2" <<endl;
     for(; vit != ven; ++vit) {
-	cout << "for loop" << endl;
         if(! (it != en) ) {
-	    cout << "if statement" <<endl;
             cout << *it << "," << *vit 
                  << ": Early termination of BST iteration." << endl;
             return -1;
 
         }
-	cout << "past if" <<endl;
         cout << *it << endl;
         if(*it != *vit) {
             cout << *it << "," << *vit 
@@ -98,7 +92,6 @@ int main() {
             return -1;
         }
         ++it;
-	cout << "it++" << endl;
     }
 
     cout << "success!" << endl;

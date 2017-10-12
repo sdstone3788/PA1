@@ -60,7 +60,7 @@ public:
   unsigned int heightHelper(BSTNode<Data> * node) const;
 
   /** Return true if the BST is empty, else false.
-   */ // TODO
+   */ 
   bool empty() const;
 
   /** Return an iterator pointing to the first (smallest) item in the BST.
@@ -123,16 +123,13 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 	BSTNode<Data> * ptr = new BSTNode<Data>(item); 
 	//set the root to the node  
 	root = ptr; 
-	cout << "ROOT IN INSERT: " << *(root) << endl;
 	BSTIterator<Data> itr (ptr);  
 	isize++;
-	cout << "beginning" << endl;
 	return std::pair<BSTIterator<Data>,bool>(itr, true);
   }
   //if the item already exists, we just need an iterator pointing to it
   BSTIterator<Data> itemItr= find(item);
   if(itemItr!=end()){
-	cout << "why" << endl;
 	return std::pair<BSTIterator<Data>,bool>(itemItr, false);
   }
   //the item does not exist in the tree so we need to put it in and return true
@@ -150,7 +147,6 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 			else{
 				node->left = insert_node_ptr;
 				(node->left)->parent = node;
-				cout << "ARE YOU HERE left" << endl;
 				BSTIterator <Data> new_itr(node->left);
 				isize++;
         			return std::pair<BSTIterator<Data>, bool>(new_itr, true);
@@ -164,7 +160,6 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 			else{
 				node->right = insert_node_ptr;
 				(node->right)->parent = node;
-				cout << "ARE YOU HERE right" << endl;
 				BSTIterator <Data> new_itr(node->right);
 				isize++;
 			        return std::pair<BSTIterator<Data>, bool>(new_itr, true);
@@ -192,22 +187,15 @@ template <typename Data>
 BSTIterator<Data> BST<Data>::find(const Data& item) const
 {
   BSTNode<Data> * node = root;
-  cout << "root: " << *(root) << endl;
-  cout <<  "item: " << item << endl;
-  cout << "node->data: " << node->data << endl;
-  //cout << "node: " << *node << endl;
   while(node != NULL){
 	if(item < node->data){
-		cout << "less than" << endl;
 		node = node->left;
 	}
 	else if (node->data < item){
-		cout << "more than" << endl;
 		node = node->right;
 	}
 	//here the data and node are equal-- we found it!
 	else{
-		cout << "node was found" << endl;
 		BSTIterator<Data> iter(node);
 		return iter;
 	}
@@ -314,18 +302,19 @@ BSTNode<Data>* BST<Data>::first(BSTNode<Data>* root)
 template <typename Data>
 void BST<Data>::deleteAll(BSTNode<Data>* n)
 {
-	if(n->left){
-		deleteAll(n->left);	
+	BSTNode<Data> * curr = n;
+	if(curr->left){
+		deleteAll(curr->left);
+		curr->left = nullptr;
 	}  
-	if(n->right){
-		deleteAll(n->right);
+	if(curr->right){
+		deleteAll(curr->right);
+		curr->right = nullptr;
 	}
-	//delete node
-	delete n->left;
-	delete n->right;
-	delete n->parent;
-	//TODO: do dis make sense????
-	//delete n->data;	
+	
+	if(curr->right == NULL && curr->left == NULL){
+		delete curr;
+	}
 }
 
 

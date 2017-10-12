@@ -44,46 +44,39 @@ BSTNode<Data>::BSTNode(const Data & d) : data(d), left(0), right(0), parent(0) {
 
 /* Return a pointer to the BSTNode that contains the item that is sequentially next 
  * in the tree */
+using namespace std;
 template <typename Data>
 BSTNode<Data>* BSTNode<Data>::successor()
-{  
-   BSTNode<Data>* nullData = new BSTNode<Data>(NULL);
+{ 
+   BSTNode<Data> * nullData = new BSTNode<Data>(NULL);
    BSTNode<Data> * node = this;
-   if (node->parent==NULL){
-	if (node->right==NULL){
-		return nullData;
+   //Case 1: if node has a right child
+   if(node->right != NULL){
+        //go right, then all the way left, this this node is the successor
+        
+	BSTNode<Data> * traversal = node->right; 
+        if(traversal->left != NULL){
+		traversal = traversal->left;
 	}
-	else {
-		return node->right;
-	}
+	
+	return traversal; 
    }
-   BSTNode<Data> * nodeP = node->parent;
    
-   //while the paren't data is less than the node's, set the node to be
-   //its parent
-   while (nodeP->data < node->data){
-	node=nodeP;
-	nodeP=node->parent;
+   //Case 2: if node has NO right child, then check the parents
+   else if(node->right == NULL){
+	BSTNode<Data> * temp = node;
+	while(temp->parent != NULL){
+		if(temp->data < temp->parent->data){
+			return temp->parent;
+		}
+		else{
+			temp = temp->parent;
+		}		
+	}
+	return nullData;
    }
-   return node->parent;
-  
-   //while the parent's data is more than the node's, go right, then all the
-   //way left
-   while (node->data < nodeP->data){
-	//if there is no right child, then the successor is its parent
-	if(node->right == NULL){
-		return nodeP;
-	}
-	//if there is a right child, set that as our node, then traverse
-	//all the way left until we can't any more
-	BSTNode<Data>* nodeRight = node->right;
-	while(nodeRight->left){
-		nodeRight=nodeRight->left;
-	}
-	return nodeRight;
-	}
-
-}
+   
+  }
 
 /** Overload operator<< to print a BSTNode's fields to an ostream. */
 template <typename Data>

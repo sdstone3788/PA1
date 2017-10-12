@@ -65,12 +65,13 @@ BSTIterator<Data>& BSTIterator<Data>::operator++() {
 /** Post-increment operator. */
 template<typename Data>
 BSTIterator<Data> BSTIterator<Data>::operator++(int) {
+
   BSTIterator before = BSTIterator(curr);
   ++(*this);
   return before;
 }
 
-/** Equality test operator. */ // TODO
+/** Equality test operator. */
 template<typename Data>
 bool BSTIterator<Data>::operator==(BSTIterator<Data> const & other) const {
   if (other.curr < curr || curr < other.curr){

@@ -20,11 +20,11 @@ int main() {
     /* Create an STL vector of some ints */
     /*test*/
     vector<int> v;
-    v.push_back(3);
-    v.push_back(4);
-    v.push_back(1);
-    v.push_back(100);
-    v.push_back(-33);
+    v.push_back(3); //3
+    v.push_back(4); //4
+    v.push_back(1); //1
+    v.push_back(10); //100
+    v.push_back(-33); //-33
 
 	
     /* UNCOMMENT THE LINES BELOW TO TEST THE TEMPLATE-BASED ITERATOR */
@@ -74,19 +74,23 @@ int main() {
     cout << "traversal using iterator..." << endl;
     auto vit = v.begin();
     auto ven = v.end();
-
+    cout << "here" << endl;
     // This is equivalent to BSTIterator<int> en = btemp.end();
     auto en = btemp.end();
 
     //This is equivalent to BST<int>::iterator it = btemp.begin();
     auto it = btemp.begin();
+    cout << "here 2" <<endl;
     for(; vit != ven; ++vit) {
+	cout << "for loop" << endl;
         if(! (it != en) ) {
+	    cout << "if statement" <<endl;
             cout << *it << "," << *vit 
                  << ": Early termination of BST iteration." << endl;
             return -1;
 
         }
+	cout << "past if" <<endl;
         cout << *it << endl;
         if(*it != *vit) {
             cout << *it << "," << *vit 
@@ -94,6 +98,7 @@ int main() {
             return -1;
         }
         ++it;
+	cout << "it++" << endl;
     }
 
     cout << "success!" << endl;

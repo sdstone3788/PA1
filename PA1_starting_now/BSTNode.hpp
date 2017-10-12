@@ -46,9 +46,19 @@ BSTNode<Data>::BSTNode(const Data & d) : data(d), left(0), right(0), parent(0) {
  * in the tree */
 template <typename Data>
 BSTNode<Data>* BSTNode<Data>::successor()
-{
+{  
+   BSTNode<Data>* nullData = new BSTNode<Data>(NULL);
    BSTNode<Data> * node = this;
+   if (node->parent==NULL){
+	if (node->right==NULL){
+		return nullData;
+	}
+	else {
+		return node->right;
+	}
+   }
    BSTNode<Data> * nodeP = node->parent;
+   
    //while the paren't data is less than the node's, set the node to be
    //its parent
    while (nodeP->data < node->data){

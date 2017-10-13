@@ -5,6 +5,10 @@
 #include <iostream>
 #include <typeinfo>
 
+/* Samantha Stone A12861099
+ * Yasmine Nassar A12772835
+ */
+
 template<typename Data>
 class BST {
 
@@ -112,7 +116,6 @@ BST<Data>::~BST() {
  *  Data items. (should not use ==, >, <=, >=)  
  */
 
-using namespace std;
 template <typename Data>
 std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
   
@@ -150,7 +153,7 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 				BSTIterator <Data> new_itr(node->left);
 				isize++;
         			return std::pair<BSTIterator<Data>, bool>(new_itr, true);
-				//break;
+				
 			}
 		}
 		else if (node->data < item){
@@ -163,13 +166,11 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 				BSTIterator <Data> new_itr(node->right);
 				isize++;
 			        return std::pair<BSTIterator<Data>, bool>(new_itr, true);
-				//break;
 			}
 		}
 	}
-	//isize++;
-        //return std::pair<BSTIterator<Data>, bool>(new_itr, true);
    }	
+   return std::pair<BSTIterator<Data>, bool>(NULL, NULL);
 
 }
 
@@ -182,16 +183,18 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
  *  behind this, see the assignment writeup.
  */
 
-using namespace std;
 template <typename Data>
 BSTIterator<Data> BST<Data>::find(const Data& item) const
 {
   BSTNode<Data> * node = root;
+  //make sure there is a node to compare to
   while(node != NULL){
 	if(item < node->data){
+		//traverse left
 		node = node->left;
 	}
 	else if (node->data < item){
+		//traverse right
 		node = node->right;
 	}
 	//here the data and node are equal-- we found it!
@@ -232,25 +235,32 @@ unsigned int BST<Data>::height() const
   return height;
 }
 
+/** Helper for height method
+ */
 template <typename Data>
 unsigned int BST<Data>::heightHelper(BSTNode<Data>* node) const
-{
+{	
+  //get the left and right children
   BSTNode<Data>* leftO = node->left;
   BSTNode<Data>* rightO = node->right;
   int Ltotal=0;
   int Rtotal=0;
+  //see if left exists, add 1 to the total height on the left side
   if (leftO){
 	Ltotal= 1+ heightHelper(leftO);
   }
+  //see if right exists, add 1 to the total height on the right side
   if (rightO){
 	Rtotal=1+ heightHelper(rightO);
   }
+  //whichever branch is largest is the height we return
   if (Rtotal<Ltotal){
 	return Ltotal;
   }
   if (Ltotal<Rtotal){
 	return Rtotal;
   }
+  //if both heights are the same, we return one of them
   return Ltotal;
 }
   
@@ -262,6 +272,7 @@ unsigned int BST<Data>::heightHelper(BSTNode<Data>* node) const
 template <typename Data>
 bool BST<Data>::empty() const
 {
+  //if there are no nodes
   if (isize<1){
 	return true;
   }
@@ -291,6 +302,7 @@ template <typename Data>
 BSTNode<Data>* BST<Data>::first(BSTNode<Data>* root)
 {
   BSTNode<Data>* node = root;
+  //traverse to the left until you are at the left most (smallest)
   while (node->left){
   	node = node->left;
   }
@@ -303,15 +315,18 @@ template <typename Data>
 void BST<Data>::deleteAll(BSTNode<Data>* n)
 {
 	BSTNode<Data> * curr = n;
+	//traverse left and delete everything
 	if(curr->left){
 		deleteAll(curr->left);
 		curr->left = nullptr;
 	}  
+	//traverse right and delete everything
 	if(curr->right){
 		deleteAll(curr->right);
 		curr->right = nullptr;
 	}
 	
+	//delete the current node
 	if(curr->right == NULL && curr->left == NULL){
 		delete curr;
 	}

@@ -3,7 +3,9 @@
 #include "BSTNode.hpp"
 #include <list>
 #include <iterator>
-
+/* Yasmine Nassar A12772835
+ * Samantha Stone A12861099
+ */
 
 // Notice this class extends the std::iterator class.
 template<typename Data>
@@ -74,8 +76,8 @@ BSTIterator<Data> BSTIterator<Data>::operator++(int) {
 /** Equality test operator. */
 template<typename Data>
 bool BSTIterator<Data>::operator==(BSTIterator<Data> const & other) const {
+  // if the curr pointers are different, the iterators are different
   if (other.curr < curr || curr < other.curr){
-  //if (other->curr < &this->curr || &this->curr < other->curr){
 	return false;
   }
   return true;
@@ -91,8 +93,8 @@ bool BSTIterator<Data>::operator==(BSTIterator<Data> const & other) const {
 /** Inequality test operator. */ 
 template<typename Data>
 bool BSTIterator<Data>::operator!=(BSTIterator<Data> const & other) const {
+  //if the curr pointers are different, the iterators are different
   if (other.curr < curr || curr < other.curr){
-  //if (other->curr < &this->curr || &this->curr < other->curr){
 	return true;
   }
   // Notice that other is a reference and not a pointer, thus it cannot be null

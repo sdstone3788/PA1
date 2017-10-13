@@ -4,6 +4,9 @@
 #include <vector>
 #include<fstream>
 #include<string>
+/* Yasmine Nassar A12772835
+ * Samantha Stone A12861099
+ */
 
 /**
  *  IMPORTANT!! DO NOT CHANGE THE LINES THAT DO I/O BELOW.

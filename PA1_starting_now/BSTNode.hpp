@@ -6,18 +6,19 @@
 /** Starter code for PA1, CSE 100 2017
  * This code is based on code by
  * Christine Alvarado and Paul Kube.
- * ADD YOUR NAME AS AN AUTHOR HERE
+ * Yasmine Nassar A12772835
+ * Samantha Stone A12861099
  */
 
 template<typename Data>
 class BSTNode {
 
 public:
-
+  Data const data;
   BSTNode<Data>* left;
   BSTNode<Data>* right;
   BSTNode<Data>* parent;
-  Data const data;   // the const Data in this node.
+//  Data const data;   // the const Data in this node.
 
   /** Constructor.  Initialize a BSTNode with the given Data item,
    *  no parent, and no children.
@@ -48,7 +49,7 @@ using namespace std;
 template <typename Data>
 BSTNode<Data>* BSTNode<Data>::successor()
 { 
-   BSTNode<Data> * nullData = new BSTNode<Data>(NULL);
+   BSTNode<Data> * nullData = NULL;
    BSTNode<Data> * node = this;
    //Case 1: if node has a right child
    if(node->right != NULL){
@@ -63,19 +64,20 @@ BSTNode<Data>* BSTNode<Data>::successor()
    }
    
    //Case 2: if node has NO right child, then check the parents
-   else if(node->right == NULL){
 	BSTNode<Data> * temp = node;
 	while(temp->parent != NULL){
+		//the parent is the successor if its data is larger
 		if(temp->data < temp->parent->data){
 			return temp->parent;
 		}
 		else{
+			//repeat until the parent is larger
 			temp = temp->parent;
 		}		
 	}
+	//if there is no larger parent, it has no successor.
 	return nullData;
-   }
-   
+  
   }
 
 /** Overload operator<< to print a BSTNode's fields to an ostream. */
